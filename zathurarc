@@ -1,0 +1,22 @@
+
+set default-fg "#55BB77"
+set default-bg "#001111"
+
+set adjust-open "width"
+
+set recolor true
+set recolor-lightcolor "#776622"
+set recolor-darkcolor "#77CC99"
+set recolor-keephue true
+" map <C-R> recolor
+" map <C-i> zoom in 
+" map <C-o> zoom out 
+
+
+
+set font "Sans normal 12"
+set guioptions "cs"
+set show-v-scrollbar true
+set window-height 600
+set window-width 1000
+
