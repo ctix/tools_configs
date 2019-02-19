@@ -42,8 +42,8 @@ font-4 = "material icons:pixelsize=16;3"
 
 
 modules-left = i3 xwindow
-modules-center = mpd
-modules-right = filesystem alsa pulseaudio  memory cpu wlan eth battery temperature date powermenu
+modules-center = date mpd wlan
+modules-right = filesystem alsa pulseaudio  memory cpu eth battery temperature powermenu
 
 ;modules-left = i3 xwindow
 ;modules-center = mpd
