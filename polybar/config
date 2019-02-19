@@ -9,7 +9,8 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/example]
-monitor = ${env:MONITOR:VGA1}
+;monitor = ${env:MONITOR:VGA1}
+;monitor = ${env:MONITOR:VGA1}
 width = 100%
 height = 30
 ;offset-x = 1%
@@ -42,14 +43,13 @@ font-4 = "material icons:pixelsize=16;3"
 
 
 modules-left = i3 xwindow
-modules-center = date mpd wlan
-modules-right = filesystem alsa pulseaudio  memory cpu eth battery temperature powermenu
+modules-center = date wlan eth
+modules-right = filesystem alsa memory cpu battery temperature  powermenu
 
 ;modules-left = i3 xwindow
-;modules-center = mpd
 
 ;modules-right =  cpu memory wlan eth battery powermenu temperature date
-;modules-right = backlight-acpi alsa wlan eth battery temperature date
+;modules-right = backlight-acpi alsa wlan eth battery temperature date pulseaudio  
 
 tray-position = right
 tray-padding = 2
@@ -237,9 +237,9 @@ type = internal/network
 interface = wls33
 interval = 3.0
 
-format-connected = <ramp-signal>
+format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
-label-connected = "%essid%"
+label-connected = "%essid%" %local_ip%
 
 format-disconnected = 
 ;format-disconnected = <label-disconnected>
