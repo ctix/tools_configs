@@ -95,7 +95,9 @@ class Commands(object):
     dmenu = 'dmenu_run -i -b -p ">>>" -fn "-*-fixed-*-*-*-*-16-*-*-*-*-*-*-*" -nb "#15181a" -nf "#fff" -sb "#333" -sf "#fff"'
     file_manager = 'thunar'
     lock_screen = 'i3exit lock'
-    suspend_screen = 'i3exit suspend'
+    suspend_sys = 'systemctl suspend'
+    changebg = 'feh --randomize --bg-scale /home/ctix/Pictures/*'
+
     # screenshot = 'gnome-screenshot'
     terminal = 'urxvt'
     # trackpad_toggle = "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')"
@@ -111,7 +113,7 @@ keys = [
     Key([mod, 'control'], 'r', lazy.restart()),
     Key([mod, 'control'], 'q', lazy.shutdown()),
     Key([mod, 'control'], 'l', lazy.spawn(Commands.lock_screen)),
-    Key([mod, 'control'], 'x', lazy.spawn(Commands.suspend_screen)),
+    Key([mod, 'control'], 'x', lazy.spawn(Commands.suspend_sys)),
 
     # Window Controls
     Key([mod, 'shift'], 'q', lazy.window.kill()),
@@ -119,36 +121,37 @@ keys = [
     Key([mod], 'f', lazy.window.toggle_floating()),
 
     # Layout, group, and screen modifiers
-    #Key([mod], 'j', lazy.layout.up()),
-    #Key([mod], 'k', lazy.layout.down()),
-    #Key([mod, 'shift'], 'j', lazy.layout.shuffle_up()),
-    #Key([mod, 'shift'], 'k', lazy.layout.shuffle_down()),
+    Key([mod], 'k', lazy.layout.up()),
+    Key([mod], 'j', lazy.layout.down()),
+    Key([mod, 'shift'], 'k', lazy.next_layout()),
+    Key([mod, 'shift'], 'j', lazy.prev_layout()),
     #Key([mod, 'shift'], 'g', lazy.layout.grow()),
     #Key([mod, 'shift'], 's', lazy.layout.shrink()),
     #Key([mod, 'shift'], 'n', lazy.layout.normalize()),
     #Key([mod, 'shift'], 'm', lazy.layout.maximize()),
-    #Key([mod, 'shift'], 'space', lazy.layout.flip()),
 
     # Switch groups
-    Key([mod], 'Left', lazy.screen.prevgroup()),
-    Key([mod], 'Right', lazy.screen.nextgroup()),
+    Key([mod], 'h', lazy.screen.prev_group()),
+    Key([mod], 'l', lazy.screen.next_group()),
+    Key([mod, 'shift'], 'space', lazy.screen.toggle_group()),
 
     # Cycle layouts
-    Key([mod], 'Up', lazy.nextlayout()),
-    Key([mod], 'Down', lazy.prevlayout()),
+    #Key([mod], 'Up', lazy.next_layout()),
+    #Key([mod], 'Down', lazy.prev_layout()),
 
     # Change window focus
     Key([mod], 'Tab', lazy.layout.next()),
-    Key([mod, 'shift'], 'Tab', lazy.layout.previous()),
+    Key([mod, 'shift'], 'Tab', lazy.next_layout()),
 
     # Switch focus to other screens
-    Key([mod], 'h', lazy.to_screen(0)),    # left
-    Key([mod], 'l', lazy.to_screen(1)),    # right
+    #Key([mod, 'shift'], 'h', lazy.to_screen(0)),    # left
+    #Key([mod, 'shift'], 'l', lazy.to_screen(1)),    # right
 
     # Commands: Application Launchers
     Key([mod], 'space', lazy.spawn(Commands.dmenu)),
-    Key([mod], 'n', lazy.spawn(Commands.browser)),
+    Key([mod], 'b', lazy.spawn(Commands.browser)),
     Key([mod], 'e', lazy.spawn(Commands.file_manager)),
+    Key([mod], 'p', lazy.spawn(Commands.changebg)),
     Key([mod], 'Return', lazy.spawn(Commands.terminal)),
 
     # Commands: Volume Controls
@@ -178,7 +181,7 @@ group_setup = (
              }),
     ('', {  # fa-windows
         'layout': 'max',
-        'matches': [Match(wm_class=('Opera',))],
+        'matches': [Match(wm_class=('Chromium',))],
     }),
     ('', {  # fa-steam
         'layout': 'max',
@@ -187,7 +190,7 @@ group_setup = (
     ('', {}),  # fa-circle-o
     ('', {
         'layout': 'max',
-        'matches': [Match(wm_class=('Thunar',))],
+        'matches': [Match(wm_class=('Visual Studio'))],
             }),  # fa-dot-circle-o
     ('', {  # fa-circle
         'layout': 'max',
@@ -224,7 +227,7 @@ bring_front_click = True
 # Screens
 screens = [
     Screen(
-    # bottom=bar.Bar(widgets=[Powerline()], **bar_defaults),
+     #bottom=bar.Bar(widgets=[Powerline()], **bar_defaults),
         top=bar.Bar(
             widgets=[
                 widget.GroupBox(**Widget.groupbox),
