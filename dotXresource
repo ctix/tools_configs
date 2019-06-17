@@ -1,0 +1,61 @@
+!!$HOME/.Xresources
+URxvt.preeditType:Root
+!!调整此处设置输入法
+URxvt.inputMethod:fcitx5
+!!颜色设置
+URxvt.depth:32
+!!中括号内数表示透明度
+URxvt.inheritPixmap:true
+URxvt.tintCddolor:white
+URxvt.shading:40
+!!URxvt.background:#000000
+URxvt.background:black
+URxvt.foreground:green
+URxvt.colorBD:Gray95
+URxvt.colorUL:Green
+URxvt.color1:Red2
+URxvt.color4:RoyalBlue
+URxvt.color5:Magenta2
+URxvt.color8:Gray50
+URxvt.color10:Green2
+URxvt.color12:DodgerBlue
+URxvt.color14:Cyan2
+URxvt.color15:Gray95
+!! TAB == URL操作
+!URxvt.urlLauncher:opera
+URxvt.perl-ext-common: default,clipboard,resize-font
+URxvt.keysym.C-Down:  resize-font:smaller
+URxvt.keysym.C-Up:    resize-font:bigger
+URxvt.clipboard.autocopy: true
+URxvt.keysym.C-c: perl:clipboard:copy
+URxvt.keysym.C-v: perl:clipboard:paste
+!URxvt.perl-ext-common: default,tabbed
+! URxvt.tabbed.tab-fg: 12
+! URxvt.tabbed.tab-bg: 0
+! URxvt.tabbed.tabbar-fg: 9
+! URxvt.tabbed.tabbar-bg: 4
+!!滚动条设置
+URxvt.scrollBar:False
+URxvt.scrollBar_floating:False
+URxvt.scrollstyle:plain
+!!滚屏设置
+URxvt.mouseWheelScrollPage:True
+URxvt.scrollTtyOutput:False
+URxvt.scrollWithBuffer:True
+URxvt.scrollTtyKeypress:True
+!!光标闪烁
+URxvt.cursorBlink:True
+URxvt.saveLines:3000
+!!边框
+URxvt.borderLess:False
+!icons
+URxvt.iconFile: /usr/share/icons/manjaro/maia/32x32.png
+!!字体设置
+URxvt.font:xft:DejaVuSansMono Nerd Font Mono:Book:pixelsize=16, \
+        xft:WenQuanYi Zen Hei:Regular:pixelsize=16, \
+        xft:Noto Sans CJK SC:Regular:pixelsize=16 
+!          xft:icomoon:Regular:pixelsize=12
+!         xft:文泉驛微米黑:Regular:pixelsize=13 
+
+! URxvt.boldfont:xft:DejaVuSansMono Nerd Font Mono:bold:pixelsize=16, \
+!               xft:WenQuanYi Zen Hei:bold:pixelsize=15
