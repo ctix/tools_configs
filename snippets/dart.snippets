@@ -1,0 +1,1063 @@
+#  "Import flutter material package"
+snippet  importM
+abbr     impm
+  import 'package:flutter/material.dart';
+
+#  "Import Flutter Cupertino package"
+snippet  importC
+abbr    impc
+  import 'package:flutter/cupertino.dart';
+ 
+snippet     mainshort
+abbr        mains
+  void main() => runApp(new ${0:MyApp()});
+
+snippet main
+abbr    main
+	main() {
+	  ${0}
+	}
+
+snippet getter
+  class Spacecraft {
+    DateTime launchDate;
+    int get launchYear => launchDate?.year;
+   }
+
+#  Create a Stateless widget"
+snippet StatelessWidget
+abbr    stls
+  class ${1:name} extends StatelessWidget {
+    const ${2:name}({Key key}) : super(key: key);
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        child: ${0:child},
+      );
+    } //build
+  }  //class
+
+# description  Create a Stateful widget"
+snippet StatefulWidget
+abbr    stfl
+  class ${1:name} extends StatefulWidget {
+    ${2:name}({Key key}) : super(key: key);
+    _${2:WidgetName}State createState() => _${2:WidgetName}State();
+  }
+  class _${2:WidgetName}State extends State<${1:name}> {
+    @override,
+    Widget build(BuildContext context) {
+      return Container(
+         child: ${3:child},
+      );
+    }
+  }
+ 
+snippet     Scaffold
+abbr        scaff
+  Scaffold(
+    backgroundColor: Colors.grey[100],
+    appBar: AppBar(
+      title: Text(${0:'titlename'}),
+      elevation: ${1:0.0},
+      ),  //AppBar
+    body: ${2:BodyPage()}
+    drawer: ${3:DrawerWidget()},
+    //endDrawer : Text('rightDrawer')
+    bottomNavigationBar: ${4:NaviBar_fun()},
+    );  //Scaffold
+  
+snippet padding
+abbr    padd
+  Padding(
+    padding: EdgeInsets.symmetric(vertical: 16.0),
+    // padding: const EdgeInsets.all(8.0),
+    child: ${1:_raisedButtion}  
+    )  // Padding
+
+
+snippet     Column
+abbr        column
+  Column(
+    mainAxisAlignment: MainAxisAlignment.center
+    children: <Widget> [
+      Image.network(${1:imageUrl}),
+      SizedBox(height: ${0:11.0}),
+      ]))
+
+snippet     build
+abbr        build
+  @override
+  Widget build(BuildContext context){
+    //TODO : implement build
+    return ${0:widget_build};
+    }
+
+snippet     Stack
+abbr        stack
+  Stack(
+    alignment: Alignment.center,
+    children <Widget>[
+      ${1:Container}
+      ${2:Positioned}
+    ] , // Stack_children 
+ )     
+
+
+snippet     ListViewTile
+  ListView(
+    padding: EdgeInsets.zero,
+    children: <Widget> [
+      ${0:ListTile()},
+      ListTile(),
+      ListTile(),
+        ], //children 
+  ),  //ListView
+
+snippet Image_asset
+abbr    imgass
+  final _myimageAsset = Image.asset(
+      'images/lake.jpg',
+      width: 600,
+      height: 240,
+      fit: BoxFit.cover,
+    ),
+ 
+snippet ListViewImage
+   ListView(
+          children: [
+          _myimageAsset,
+          titleSection,
+          buttonSection,
+           textSection,
+          ], //children
+        ),  //ListView
+ 
+
+snippet RaiseButton 
+abbr    raisebtn
+ RaisedButton(
+          color: Colors.yellow,
+          disabledTextColor: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)
+          ),
+          elevation: 20.0,
+          splashColor: Colors.green,
+          highlightColor: Colors.red,
+          highlightElevation: 1.0,
+          child: Text("Raised Button"),
+          onPressed: (){},
+        ), // RaiseButton
+        
+snippet raiseButton2 
+   RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(WelcomePage.tag);
+        },
+        padding: EdgeInsets.all(12),
+        color: Colors.lightBlueAccent,
+        child: Text('Log In', style: TextStyle(color: Colors.white)),
+      ),
+
+snippet BoxDecoration
+abbr    boxdec
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(
+              Radius.circular(20.0), ),
+      image: DecorationImage(
+        image: NetworkImage(${0:url})),
+      color: Colors.green, 
+      boxShadow: [
+          BoxShadow(color: Colors.red, blurRadius: 12.0 ),
+          BoxShadow(color: Colors.green, blurRadius: 40.0)
+              ]
+ 
+          ),
+
+snippet ShapeDec
+abbr     shaped
+    decoration: new ShapeDecoration(
+      color: Colors.white,
+      shadows: <BoxShadow>[
+        BoxShadow(color: Colors.black, blurRadius: 15.0)
+      ],
+      shape: new Border.all(
+        color: Colors.red,
+        width: 8.0,
+      ),
+    ),
+
+snippet build_Widget
+abbr    bdw
+  @override
+  Widget build(BuildContext context) {
+    return ${0:};
+  } //build
+
+#  Called when this object is inserted into the tree.
+# The framework will call this method exactly once for each State object it creates."
+snippet  initState
+  @override  	
+  void initState() { 
+      super.initState();
+      ${0:}
+  }
+
+snippet     Container
+abbr        container
+  Container(
+    color: Colors.white,
+    padding: EdgeInsets.all(12.0)
+    //padding: const EdgeInsets.only(bottom: 8),
+    margin: EdgeInsets.all(8.0),
+    alignment: Alignment.center
+    width: ${1:90.0},
+    height: ${2:90.0}, 
+    constraints: BoxConstraints(
+            maxWidth: 400.0,
+            minWidth: 200.0
+          ),
+ 
+    decoration: _hisBoxDecoration,
+    child: ${0:childWidget()}
+  );  //Container
+
+
+
+#  "Called when this object is removed from the tree permanently. 
+# The framework calls this method when this State object will never build again."
+snippet  dispose
+abbr     disp
+  @override
+  void dispose() { 
+    ${0:}
+    super.dispose();
+  }
+
+# Prints a message to the console, which you can access using the flutter tool's `logs` command (flutter logs)."
+snippet  debugPrint
+  debugPrint(${1:statement});
+
+#  "Called whenever the application is reassembled during debugging, for example during hot reload."
+snippet  reassemble
+  @override
+  void reassemble(){
+    super.reassemble();
+    ${0:}
+  } //reassemble
+
+#  "Called when a dependency of this State object changes"
+snippet  didChangeD
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ${0:}
+  
+
+snippet  TextWrap   
+  Text(
+        '${1:Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese} '
+            '${2: line2 Alps. Situated 1,578 meters above sea level,} '
+            'lake, which warms to 20 degrees Celsius in the summer. Activities '
+            'enjoyed here include rowing, and riding the summer toboggan run.',
+        ${0: some Text Style here}
+      ), //Text
+
+
+
+#  "Called whenever the widget configuration changes."
+snippet  didUpdateW
+  @override
+  void didUpdateWidget (${1:Type} ${2:oldWidget}) {
+    super.didUpdateWidget(${2:oldWidget});
+    ${0:}
+  }
+
+#  "Creates a scrollable, linear array of widgets that are created on demand.Providing a non-null `itemCount` improves the ability of the [ListView] to estimate the maximum scroll extent."
+snippet  ListViewBuilder
+abbr      listvb
+  ListView.builder(
+    itemCount: ${1:1},
+    itemBuilder: (BuildContext context, int index) {
+    return ${2:};
+   },
+  ),
+
+
+#  "Creates a `ScrollView` that creates custom scroll effects using slivers. If the `primary` argument is true, the `controller` must be null."
+snippet  CustomScrollV
+abbr     customScr
+  CustomScrollView(
+    slivers: <Widget>[
+    ${0:}
+    ],
+  ),
+
+#  "Creates a new `StreamBuilder` that builds itself based on the latest snapshot of interaction with the specified `stream`"
+snippet  StreamBldr
+abbr  streamBldr
+  StreamBuilder(
+    stream: ${1:stream} ,
+    initialData: ${2:initialData} ,
+    builder: (BuildContext context, AsyncSnapshot snapshot){
+      return Container(
+        child: ${3:child},
+      );
+    },
+  ),
+
+# "Describes the part of the user interface represented by this widget."
+#  "Used for creating custom paint"
+snippet  customPainter
+  @override
+  void paint(Canvas canvas, Size size) {
+  }
+
+  @override
+  bool shouldRepaint(${0:name}Painter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(${0:name}Painter oldDelegate) => false;
+  }
+
+snippet ClipPath
+abbr    clippath 
+    new ClipPath(
+      clipper: MyClipper(),
+      child: _myContainer,
+          ), //ClipPath(
+
+#  "Used for creating custom shapes"
+snippet  customClipper
+abbr     custclip
+  class ${0:name}Clipper extends CustomClipper<Path> {
+
+    @override
+    Path getClip(Size size) {
+    }
+
+    @override
+    bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  }
+
+snippet Clipper_demo
+abbr    clipdemo
+  class MyClipper extends CustomClipper<Path> {
+    @override
+    Path getClip(Size size) {
+      Path p = new Path();
+      p.lineTo(size.width, 0.0);
+      p.lineTo(size.width, size.height * 0.85);
+      p.arcToPoint(
+        Offset(0.0, size.height * 0.85),
+        radius: const Radius.elliptical(50.0, 10.0),
+        rotation: 0.0,
+      );
+      p.lineTo(0.0, 0.0);
+      p.close();
+      return p;
+    }
+
+    @override
+    bool shouldReclip(CustomClipper oldClipper) => return true;
+  } //MyClipper
+
+
+
+
+
+#  "Creates an Animated Builder. The widget specified to `child` is passed to the `builder` "
+snippet  animatedBldr
+  AnimatedBuilder(
+    animation: ${1:animation},
+    child: ${2:child},
+    builder: (BuildContext context, Widget child) {
+      return ${3:};
+    },
+  ),
+
+#  "Creates a widget that both has state and delegates its build to a callback. Useful for rebuilding specific sections of the widget tree."
+snippet  statefulBldr
+  StatefulBuilder(
+    builder: (BuildContext context, setState) {
+      return ${0:};
+    },
+  ),
+
+#  "Creates a builder which allows for the orientation of the device to be specified and referenced"
+snippet  oriantationBldr
+  OrientationBuilder(
+    builder: (BuildContext context, Orientation orientation) {
+      return Container(
+        child: ${3:child},
+      );
+    },
+  ),
+
+#  "Similar to the Builder widget except that the framework calls 
+# the builder function at layout time and provides the parent widget's constraints."
+snippet  layoutBldr
+  LayoutBuilder(
+    builder: (BuildContext context, BoxConstraints constraints) {
+      return ${0:};
+    },
+  ),
+
+#  "Creates a scroll view with a single child"
+snippet  singleChildSV
+  SingleChildScrollView(
+    controller: ${1:controller,}
+    child: Column(
+      ${0:}
+    ),
+  ),
+
+#  "Creates a Future Builder. This builds itself based on the latest snapshot of interaction with a Future."
+snippet  futureBuilder
+abbr     futbld
+  FutureBuilder(
+    future: ${1:Future},
+    initialData: ${2:InitialData},
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      return ${3:};
+    },
+  ),
+
+#  "This method is invoked when a non-existent method or property is accessed."
+snippet  nosm
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    ${1:}
+  }
+
+#  "Class used to propagate information down the widget tree"
+snippet  inheritedW
+  class ${1:Name} extends InheritedWidget {
+    ${1:Name}({Key key, this.child}) : super(key: key, child: child);
+
+    final Widget child;
+
+    static ${1:Name} of(BuildContext context) {
+      return (context.inheritFromWidgetOfExactType(${1:Name})as ${1:Name});
+    }
+
+    @override
+    bool updateShouldNotify( ${1:Name} oldWidget) {
+      return ${2:true};
+    }
+  }
+
+#  "Whether this State object is currently in a tree."
+snippet  mounted
+  @override
+  bool get mounted {
+    ${0:}
+  }
+
+#  "A Sink is the input of a stream."
+snippet  snk
+  Sink<${1:type}> get ${2:name} => _${2:name}Controller.sink;
+  final _${2:name}Controller = StreamController<${1:type}>();"
+
+#  "A source of asynchronous data events. A stream can be of any data type <T>"
+snippet  strm
+  Stream<${1:type}> get ${2:name} => _${2:name}Controller.stream;
+  final _${2:name}Controller = StreamController<${1:type}>();"
+
+#  "Returns a string representation of this object."
+snippet  toStr
+  @override
+  String toString() {
+  return ${1:toString};
+   }
+
+
+ 
+#  "Create a MaterialApp
+snippet  materialapp
+  import 'package:flutter/material.dart';
+  void main() => runApp(MyApp());
+   
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return MaterialApp(
+        title: 'Material App',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Material App Bar'),
+          ),
+          body: Center(
+            child: Container(
+              child: Text('Hello World'),
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+
+snippet Card
+abbr    card
+   Card(
+      child: ListTile(
+        leading: FlutterLogo(size: 72.0),
+        title: Text('Three-line ListTile'),
+        subtitle: Text(
+          'A sufficiently long subtitle warrants three lines.'
+        ),
+        trailing: Icon(Icons.more_vert),
+        isThreeLine: true,
+      ),
+    )
+
+snippet Divider
+ Divider(
+    height: 1.0,
+    indent: 60.0,
+    color: Colors.red,),
+
+#  "Cupertino App
+snippet  cupeapp
+  import 'package:flutter/cupertino.dart';
+
+  void main() => runApp(MyApp());
+   
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return CupertinoApp(
+        title: 'Cupertino App',
+        home: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Cupertino App Bar'),
+          ),
+          child: Center(
+            child: Container(
+              child: Text('Hello World'),
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+
+
+snippet lib
+	library ${1};
+	${0}
+snippet im
+	import 'package:${1}/${2}.dart';
+	${0}
+snippet rgx
+	new RegExp(r'${1}')
+snippet var
+	var ${1} = ${2};
+
+
+snippet st
+	static ${0}
+snippet fi
+	final ${0}
+snippet re
+	return ${0}
+snippet br
+	break;
+snippet th
+	throw ${0}
+snippet cl
+	class ${1:`vim_snippets#Filename(" "untitled")`} ${0}
+snippet in
+	interface ${1:`vim_snippets#Filename(" "untitled")`} ${0}
+snippet imp
+	implements ${0}
+snippet ext
+	extends ${0}
+snippet if
+	if (${1:true}) {
+	  ${0}
+	}
+snippet ife
+	if (${1:true}) {
+	  ${2}
+	} else {
+	  ${0}
+	}
+snippet el
+	else
+snippet sw
+	switch (${1}) {
+	  ${0}
+	}
+snippet cs
+	case ${1}:
+	  ${0}
+snippet de
+	default:
+	  ${0}
+snippet for
+	for (var ${2:i} = 0, len = ${1:things}.length; $2 < len; ${3:++}$2) {
+	  ${0:$1[$2]}
+	}
+snippet fore
+	for (final ${2:item} in ${1:itemList}) {
+	  ${0}
+	}
+snippet wh
+	while (${1:/* condition */}) {
+	  ${0}
+	}
+snippet dowh
+	do {
+	  ${0}
+	} while (${0:/* condition */});
+snippet as
+	assert(${0:/* condition */});
+snippet try
+	try {
+	  ${0:${VISUAL}}
+	} catch (${1:Exception e}) {
+	}
+snippet tryf
+	try {
+	  ${0:${VISUAL}}
+	} catch (${1:Exception e}) {
+	} finally {
+	}
+
+snippet     ThemeData
+abbr        theme
+  theme: ThemeData(
+    primarySwatch: Colors.${1:color},
+    highlightColor: Color.fromRGBO(255,255,255,0.5),
+    splashColor: Colors.white70,
+    fontFamily: 'Nunito'
+    )
+
+
+snippet     materialApp
+abbr        materApp
+  class ${1:Name} extends StatelessWidget {
+    @override
+    Widget build(BuildContext context){
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: _mytheme,
+        home: ${1:Homepage()}, 
+        routes: _myroutes,
+      );
+    }
+  }
+
+snippet ListView
+    ListView(
+      padding: const EdgeInsets.all(8.0),
+      children: <Widget>[
+        Container(
+          height: 50,
+          color: Colors.amber[600],
+          child: const Center(child: Text('Entry A')),
+        ),
+        Container(
+          height: 50,
+          color: Colors.amber[500],
+          child: const Center(child: Text('Entry B')),
+        ),
+        Container(
+          height: 50,
+          color: Colors.amber[100],
+          child: const Center(child: Text('Entry C')),
+        ),
+      ],
+    )
+
+snippet     MaterialApp
+abbr        matapp
+    return MaterialApp(
+      title: 'Flutter layout demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter layout demo'),
+        ),
+        body: ListView(
+          children: [
+            Image.asset(
+              'images/lake.jpg',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
+        ),  //ListView
+      ), //Scaffold
+    );  //MaterialApp
+
+snippet     TextField
+abbr        textf
+  TextField(
+    decoration: InputDecoration(
+             fillColor: Colors.blue.shade100, 
+             filled: true, 
+             labelText: "Securities Code Only",
+             prefixIcon: Icon(Icons.local_airport),
+             suffixText: 'suffix',
+             ),
+             ),  //TextField
+
+snippet BottomNavigationBarItem 
+abbr    bnbi
+    BottomNavigationBarItem(
+      icon: Icon(Icons.history),
+      title: Text(${0:'title'}),
+      ),
+
+snippet   BottomNavigationBar
+abbr      bnb 
+  BottomNavigationBar(
+    currentIndex: _currenIdx,  //define it ahead
+    onTap: _onTapHandler,
+    type: BottomNavigationBarType.fixed,
+    fixedColor: Colors.black,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.explore),
+        title: Text(${1:'title'}),
+        ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.history),
+      title: Text(${0:'title'}),
+      ),
+    ],
+  )   //BottomNavigationBar 
+
+snippet     TabBar
+abbr        tabb
+  TabBar(
+    unselectedLabelColor: Colors.black38,
+    indicatorColor: Colors.black54,
+    indicatorSize: TabBarIndicatorSize.label,
+    indicatorWeight: 1.0,
+    tabs: <Widget> [
+      Tab(icon: Icon(Icons.${1:name})),
+      Tab(icon: Icon(Icons.${2:name})),
+      Tab(icon: Icon(Icons.${0:name})),
+    ],
+  ),
+
+snippet     TabBarView
+abbr        tabv
+  TabBarView(
+    children: <Widget> [
+    //Icon(Icons.local_florist, size: 128.0, color: Colors.black12),
+    //Icon(Icons.direction_bike, size: 128.0, color: Colors.black12),
+      Icon(Icons.${2:whichone}),size: ${0}, color: ${1}),
+    ],  // <Widget>[]
+  ), //TabBarView
+
+
+snippet AppBar_actions
+abbr    appbar_act
+  AppBar(
+        title: new Text("Title"),
+        actions: <Widget>[
+           _hisIconButton ,
+           _hisIconButton ,
+      ),
+
+snippet     Text_Style
+abbr        textstyle      
+  Text(
+    '${1:text_to_show}',
+    textAlign: ${2:TextAlign.right},  // textAlign: TextAlign.center,
+    //style: TextStyle(fontWeight: FontWeight.bold)
+    //style: Theme.of(context).textTheme.title
+    softWrap: true,
+    style: TextStyle(
+        fontSize: 12.0,
+        color: Colors.red,
+        fontWeight: FontWeight.w100)
+    ),
+
+
+snippet     ListTile
+  ListTile(
+    title: Text('${1:'the_title'}'),  
+    //leading:  in the front 
+    trailing: Icon(Icons.message, 
+              color: Colors.black12
+              size: ${2:22.0}),
+    onTap: () => ${0:Navigator.pop(context)},
+  )
+
+snippet     NaviPush
+abbr        navp
+  Navigator.of(context).pushNamed(${1:toPage})
+  Navigator.pushNamed(context, ${2:toPage})
+
+snippet    Icon
+  Icon(
+    Icons.${0:whichone}),
+    color: Colors.${2:black12},
+    size: ${1:22.0}
+  )
+
+snippet IconButton
+abbr    iconb
+  IconButton(
+      icon: Icon(${1:Icons.menu)},
+      tooltip: ${2:'tips here'},
+      onPressed: () => ${0:pressed_fun}
+      ),
+
+snippet FlatButton
+         FlatButton(
+          child: Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+   
+snippet AlertDialog
+abbr  alertdialog
+  AlertDialog(
+      title: Text('New todo'),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+      ),
+      actions: <Widget>[
+      _flatButton,
+      _flatButton2,
+         ],
+    );  //AlertDialog
+   
+
+
+snippet     AppBarleading
+abbr        apbl
+  AppBar(
+    leading: _hisIconButton,
+    title: Text('${1:titlename}'),
+    actions: <Widget>[
+      ${2:_IconButton1},
+      ${3:_IconButton2},
+      ],
+    elevation: 0.0,
+    bottom: ${4:TabBa}
+  )
+
+
+snippet     BuildContext
+  BuildContext context
+
+snippet     Widget_build
+abbr        widgetbuild
+   Widget build(BuildContext context){
+    ${0}
+   }
+
+snippet     sfw
+abbr        StatefulWidget
+options     head
+  class ${1:WidgetName} extends StatefulWidget {
+    @override
+      State<StatefulWidget> createState() {
+        // TODO: implement createState 
+        return ${0:theWidgetState};
+      }
+  }
+
+  class ${2:theWidgetState} extends State<${3:WidgetName}> {
+    @override
+    Widget build(BuildContext context){
+      //TODO : implement build
+      return ${4:widget_build()};
+  
+  }
+
+snippet  CircleAvator
+  CircleAvator(
+    backgroundImage: NetworkImage(${1:url})
+    )
+
+snippet   DecorationImage
+abbr decoim
+  DecorationImage(
+    image: NetworkImage(${0:url}),
+    fit: BoxFit.cover,
+    colorFilter: ColorFilter.mode(
+      Colors.yellow[400].withOpacity(0.6),
+      //BlendMode.srcOver,
+      BlendMode.hardLight,
+     ),
+     ),  //DecorationImage
+
+snippet     UserAccount
+abbr        UserAccountDrawerHeader
+  UserAccountDrawerHeader(
+    accountName: Text(${1}),
+    accountEmail: Text(${2}),
+    currenAccountPicture: CircleAvator(${3}),
+    decoration: BoxDecoration(
+      color: Colors.yellow[400],
+      image: DecorationImage(
+        image: NetworkImage(${0:url})),
+    ),
+  )
+
+
+
+snippet     routes
+abbr        routes
+    initialRoute: '/', 
+    routes: {
+        '/' : (BuildContext context) ==> HomePage(),
+        '/${1:Pageone}': (BuildContext context) => ${2:Pageone()},
+        '/${3:Pagetwo}': (BuildContext context) => ${0:Pagetwo()},
+    }, //routes
+
+snippet PageController
+abbr    pagectrl
+       controller : PageController(
+        initialPage: 1
+        keepPage: false,
+        viewpointFraction: 0.85,
+        ), // PageController
+ 
+snippet     PageView
+abbr        pagv
+  return PageView(
+      pageSnapping: false,
+      reverse: true,
+      scrollDirection: Axis.vertical //horizontal,
+      onPageChanged: () => ${1:_pagechanged()},
+      controller : _pageController,
+      children <Widget>[
+        Container(
+          color: Colors.yellow[900],
+          alignment: Alignment(0.0,0.0),
+          child: ${0:_ContainerORwidgetschild}',
+        ), //Container
+      ],  // children 
+      )  // Pageview 
+
+
+snippet Positioned  
+abbr   posi
+  Positioned(
+    top: 0.0,
+    bottom: 8.0,
+    left:  8.0,
+    child: ${1:Container},
+              ),
+snippet Image_network
+abbr    imgnet
+   Image.network(
+      posts[index].imageUrl,
+      fit: BoxFit.cover
+      ),  // Image.network
+
+snippet SizeBox_expand
+abbr    sizeboxe
+      SizedBox.expand(
+        child: _Image_form_network,
+       ), // SizedBox
+
+snippet  PageViewBuild  
+abbr     pvb 
+  final myPageView = new PageView.builder(
+      itemCount: ${1:length},
+      scrollDirection: Axis.vertical ,//horizontal
+      itemBuilder: _ItemBuilder,
+      reverse : false,
+      controller : _defaultPageController,
+      physics :  PageScrollPhysics(parent: BouncingScrollPhysics())
+      OnPageChanged: (index) {print(index);}
+    ),  //PageView.builder
+
+
+snippet     Alignmment
+abbr        alignment
+  alignment: Alignment(${1:0.0},${2: 0.0})
+
+snippet fadeInImage
+abbr    fadimg
+  FadeInImage.assetNetwork(
+    placeholder : 'images/camera.png', 
+    image :   imgs[index],
+    fit :   BoxFit.fitWidth,
+  )
+
+
+snippet     GridviewBuilderDemo_Widget
+abbr        gridvb
+options     head
+  class ${1:GridViewBuilderDemo} extends StatelessWidget {
+    Widget _gridItemBuilder(BuildContext context, int index) {
+        return Container(
+            child: _img_url,  //child: image
+            ); // Container
+    }  //_gridItemBuilder
+
+    @override
+    Widget build(BuildContext ocntext){
+      return GridView.builder(
+        padding : EdgeInsets.all(9.0),
+        itemCount: ${4:posts.length}, 
+        itemBuilder : _gridItemBuilder ,
+        gridDelegate: SliverGridDelegateWithCrossAxisExtent(
+          // CrossAxisCount: 3,
+          maxCrossAxisExtent: 50.0,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+          ), //SliverGridDelegateWithCrossAxisExtent(
+      );  // GridView.builder
+    }
+  }
+
+snippet     ListView.generate
+abbr        listgen 
+  List <Widget> _buildTiles(int length) {
+    return List.generate(length, (int index) {
+      return _hisContainer(
+          color: Colors.gray[300],
+          alignment: Alignment(0.0, 0.0)
+          child: 
+            Text('Item $index', ),  // Text
+          ); // Container
+            } );  // List.generate
+  }
+
+snippet GridView_count
+abbr    gridvc
+  GridView.count(
+    CrossAxisCount: 3,
+    CrossAxisSpacing: 16.0,
+    mainAxisSpacing: 16.0,
+    scrollDirection: Axis.horizontal,
+    children : _buildTiles(100),
+      );  // GridView.count
+    }
+  }
+
+snippet     GridViewext 
+abbr        gvex
+  GridView.extent(
+      maxCrossAxisExtent: 150,
+      CrossAxisSpacing: 16.0,
+      mainAxisSpacing: 16.0,
+      scrollDirection: Axis.horizontal,
+      children : _buildTiles(100),
+    );  // GridView.extent
+
+# snippet     title
+  # title: Text(${1:'title'}),
