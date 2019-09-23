@@ -222,6 +222,15 @@ mouse = (
          start=lazy.window.get_size()),
 )
 
+def num_screens():
+    process = subprocess.Popen(["xrandr"], stdout=subprocess.PIPE)
+    out = process.communicate()[0].split("\n")
+    i = 0
+    for line in out:
+        if " connected " in line:
+            i += 1
+        return i
+
 bring_front_click = True
 
 # Screens
@@ -266,16 +275,29 @@ screens = [
     #widget.Wlan(interface='wls3'),
             ],
             **bar_defaults), ),
-    Screen(
-        top=bar.Bar(
-            widgets=[
-                widget.GroupBox(**Widget.groupbox),
-                widget.WindowName(),
-                widget.CurrentLayout(),
-    #  Widget.Battery(),
-            ],
-            **bar_defaults), )
+   # Screen(
+   #     top=bar.Bar(
+   #         widgets=[
+   #             widget.GroupBox(**Widget.groupbox),
+   #             widget.WindowName(),
+   #             widget.CurrentLayout(),
+   # #  Widget.Battery(),
+   #         ],
+   #         **bar_defaults), )
 ]
+
+if num_screens() == 2:
+    screens.append(
+    Screen(
+    bottom=bar.Bar([
+    widget.GroupBox(highlight_method="block", this_current_screen_border=colors["blue"]),
+	widget.Sep(padding=15),
+	widget.CurrentLayout(),
+	widget.Sep(padding=15),
+	widget.Prompt(),
+	_WindowTabs(),
+	widget.Systray(),
+	], 25)))
 
 # Layouts
 layouts = (
