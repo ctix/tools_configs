@@ -1,23 +1,33 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
- export PATH="/home/ctix/anaconda3/bin:$PATH"
+
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx5
+export QT_IM_MODULE=fcitx
+export ANDROID_HOME="/home/ctix/Android/Sdk"
+export MONITOR="eDP-1-1"
+
+# FLUTTER PUB
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+#export PUB_HOSTED_URL="https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+#export FLUTTER_STORAGE_BASE_URL="https://mirrors.tuna.tsinghua.edu.cn/flutter"
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/ctix/.oh-my-zsh"
+  export ZSH=/home/ctix/.oh-my-zsh
+
+# added by Anaconda3 installer
+export PATH=$HOME/bin:$HOME/miniconda3/bin:/opt/flutter/bin:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$HOME/.config/scripts:$PATH
+export PATH=$PATH:/opt/flutter/bin/cache/dart-sdk/bin
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
+ZSH_THEME="wedisagree"
+#ZSH_THEME="agnoster"
 #ZSH_THEME="random"
-ZSH_THEME="agnoster"
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+#ZSH_THEME="jonathan" 
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -30,7 +40,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=55
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -51,10 +61,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -64,11 +71,33 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git wd z)
+plugins=(git z wd themes)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+extract () {
+if [ -f $1 ] ; then
+  case $1 in
+    *.tar.bz2)   tar xjf $1     ;;
+    *.tar.gz)    tar xzf $1     ;;
+    *.bz2)       bunzip2 $1     ;;
+    *.rar)       unrar e $1     ;;
+    *.gz)        gunzip $1      ;;
+    *.tar)       tar xf $1      ;;
+    *.tbz2)      tar xjf $1     ;;
+    *.tgz)       tar xzf $1     ;;
+    *.zip)       unzip $1       ;;
+    *.Z)         uncompress $1  ;;
+    *.7z)        7z x $1        ;;
+    *)     echo "'$1' cannot be extracted via extract()" ;;
+     esac
+ else
+     echo "'$1' is not a valid file"
+ fi
+}
+
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -86,7 +115,11 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# cuda dnn
+#export LD_LIBRARY_PATH="/opt/cuda/lib64:${LD_LIBRARY_PATH}"
+#export CUDA_HOME="/opt/cuda"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -95,24 +128,74 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias zshconfig="vi ~/.zshrc"
-alias srczsh="source  ~/.zshrc"
+alias smbconfig="sudo vi /etc/samba/smb.conf"
 alias ohmyzsh="vi ~/.oh-my-zsh"
-alias lsdisk="sudo fdisk -l"
-alias his="history|grep"
-alias bjtime="sudo ntpdate 1.cn.pool.ntp.org"     
-alias i3config="vi ~/.config/i3/config" 
+alias lsdisk="sudo fdisk -l "
+alias srczsh="source ~/.zshrc"
+alias totensor="source ~/tensorflow/bin/activate"
 alias pbd="ping -c4 www.baidu.com"
-alias df="df -h"
-alias wind="sudo mount /dev/sda5 /mnt/wind "
-alias wine="sudo mount /dev/sda6 /mnt/wine"
-alias ud="sudo mount /dev/sdb /mnt/udisk"
-alias xres="xrdb -load ~/.Xresources"
-alias xmmp="xmodmap ~/.Xmodmap"
-alias alg="alias |grep"
 alias ship="ip addr show"
+alias i3config="vi ~/.config/i3/config"
+alias nx="nvidia-xrun"
+alias nxcfg="vi .nvidia-xinitrc"
+alias his="history |grep"
+alias wpa="_ vi /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf"
+#i3 use multi-monitor VGA , if HDMI-1-1 replace VGA
+alias mml="xrandr --output VGA-1-1 --left-of eDP-1-1 --auto"
+#i3 use multi-monitor VGA , if HDMI-1-1 replace VGA
+alias mml="xrandr --output VGA-1-1 --left-of eDP-1-1 --auto"
+alias mmlh="xrandr --output HDMI-1-1 --left-of eDP-1-1 --auto"
+alias mmr="xrandr --output VGA-1-1 --right-of eDP-1-1 --auto"
+alias mmrh="xrandr --output HDMI-1-1 --left-of eDP-1-1 --auto"
+alias hdmi_only="xrandr --output eDP-1-1 --off"
+alias lcoff="xrandr --output eDP-1-1 --off"
+alias vgao="xrandr --output eDP-1-1 --off"
+alias hdmi_="xrandr --output HDMI-1-1 --mode 1920x1080"
+alias tv="xrandr --output HDMI-1-1 --mode 1280x1024 "
+alias lapoff="xrandr --output eDP-1-1 --off"
+alias loco="xrandr --output eDP-1-1  --auto --output HDMI-1-1 --off"
+## WIFI switch
+#alias homewifi="sudo wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant_nerual.conf  -iwlp3s0"
+#alias tsgwifi="sudo wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf  -iwlp3s0"
+alias psg="ps -ef|grep"
 alias skill="sudo kill -9"
 alias svi="sudo vi"
-alias jnb="jupyter notebook"
-alias mm="xrandr --output VGA1 --auto --output LVDS1 --off"
-alias psg="ps -ef|grep"
-alias smbshare="sudo systemctl restart smb.service nmb.service"
+alias df="df -h"
+alias jnb="jupyter lab"
+alias rec3m="ffmpeg -s 1920x1080 -r 25 -f x11grab -i :0.0 -f alsa -ac 2 -ar 44100 -i pulse -t 180 /tmp/test.mp4" 
+alias recarea="ffmpeg -s 1680x920 -r 25 -f x11grab -i :0.0+10,80 -f alsa -ac 2 -ar 44100 -i pulse -t 360 /tmp/prod_01.mp4"
+alias dudir="sudo du -lh --max-depth=1"
+alias alg="alias|grep"
+#alias edit='docker run -ti --rm -v $(pwd):/home/developer/workspace jare/vim-bundle'
+alias polyconfig="vi ~/.config/polybar/config"
+alias cleanpkgs='yay -R $(pacman -Qdtq)'
+alias qtilecfg='vi ~/.config/qtile/config.py'
+alias xresqtcfg='vi ~/.config/X11/xresources'
+alias bgp='feh  --randomize --bg-scale  ~/Pictures/*'
+alias sshcq='ssh ctix@tcvm -p 61871'
+alias sshsh='ssh ctix@shml -p 61871'
+alias sshbj='ssh ctix@bjbj -p 27917'
+
+alias tf2env="source activate tf2"
+alias condea="conda deactivate"
+alias pspy="ps -ef| grep python"
+
+alias erect="xrandr --output VGA-1-1 --rotate left"
+alias erecth="xrandr --output HDMI-1-1 --rotate left"
+alias blon="bluetoothctl power on"
+alias blof="bluetoothctl power off"
+alias capctl="xmodmap ~/.Xmodmap 2>/dev/null"
+alias mtnfsx61="sudo mount.nfs4 x61:/srv/nfs/Read /mnt/srv"
+alias xres="xrdb -load $HOME/.Xresources"
+alias xresqt="xrdb -load $HOME/.config/X11/xresources"
+alias cha="cht.sh"
+
+
+## LS_COLORS=$LS_COLORS:'di=1;33:'; export LS_COLORS
+## start graphics while log in
+
+if [[ $(tty) = /dev/tty1 ]]; then
+  nx qtile 
+#  nx i3 
+fi
+

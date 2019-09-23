@@ -151,7 +151,7 @@ assign [class="URxvt"] $WS1
 assign [class="Thunar"] $WS1
 assign [class="Firefox"] $WS2
 assign [class="Zathura"] $WS3
-assign [class="Gvim"] $WS4
+assign [class="Nvim"] $WS4
 assign [class="Ise"] $WS5
 assign [class="VirtualBox"] $WS6
 

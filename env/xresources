@@ -7,12 +7,14 @@ URxvt.depth:32
 !!中括号内数表示透明度
 URxvt.inheritPixmap:true
 URxvt.tintCddolor:white
-URxvt.shading:80[90]
-! URxvt.background:#000000
-URxvt.background:Gray90
-URxvt.foreground:white
+URxvt.shading:80[20]
+URxvt.background:#000000
+!URxvt.background:black
+URxvt.foreground:#68EF56
+!URxvt.background:gray
 URxvt.colorBD:Gray95
 URxvt.colorUL:Green
+*.color0:#AA6655
 URxvt.color1:Red2
 URxvt.color4:RoyalBlue
 URxvt.color5:Magenta2
@@ -51,11 +53,14 @@ URxvt.borderLess:False
 !icons
 URxvt.iconFile: /usr/share/icons/manjaro/maia/32x32.png
 !!字体设置
-URxvt.font:xft:DejaVuSansMono Nerd Font Mono:Book:pixelsize=16, \
-        xft:WenQuanYi Zen Hei:Regular:pixelsize=16, \
-        xft:Noto Sans CJK SC:Regular:pixelsize=16 
-!          xft:icomoon:Regular:pixelsize=12
-!         xft:文泉驛微米黑:Regular:pixelsize=13 
+!!      xft:文泉驛微米黑:Regular:pixelsize=16  */
+#define font1         SauceCodePro Nerd Font Mono
+#define font2         FuraMono NF
+#define font3         DejaVuSansMono Nerd Font
+#define font4         Noto Sans Mono CJK SC
 
-URxvt.boldfont:xft:DejaVuSansMono Nerd Font Mono:bold:pixelsize=16, \
-               xft:WenQuanYi Zen Hei:bold:pixelsize=15
+URxvt*letterSpace: 1 
+URxvt*font:xft:font1:pixelsize=10, xft:font2:pixelsize=10:minspace=false, xft:font3:pixelsize=10,xft:font4:pixelsize=10
+!URxvt*boldFont:xft:font1:bold:pixelsize=16, xft:font2:pixelsize=14:minspace=False,xft:font3:pixelsize=14,xft:font4:pixelsize=14
+URxvt*italicFont:xft:font1:italic:pixelsize=14, xft:font2:pixelsize=14:minspace=False,xft:font3:pixelsize=14,xft:font4:pixelsize=14
+!URxvt*boldItalicFont:xft:font1:bold:italic:pixelsize=14, xft:font2:pixelsize=14:minspace=False, xft:font3:pixelsize=14, xft:font4:pixelsize=14

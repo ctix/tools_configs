@@ -160,7 +160,7 @@ keys = [
     Key([mod, 'control'], 'c', lazy.spawn(Commands.browser)),
     Key([mod, 'control'], 'o', lazy.spawn(Commands.opera)),
     Key([mod, 'control'], 's', lazy.spawn(Commands.sakura)),
-    Key([mod, 'control'], 'x', lazy.spawn(Commands.xfterm)),
+    #Key([mod, 'control'], 'x', lazy.spawn(Commands.xfterm)),
     Key([mod, 'control'], 'f', lazy.spawn(Commands.file_manager)),
     Key([mod, 'control'], 'm', lazy.spawn(Commands.music_player)),
     #Key([mod], 'q', lazy.spawn(Commands.sqlitebrowser)),
