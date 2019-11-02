@@ -8,10 +8,9 @@ URxvt.depth:32
 URxvt.inheritPixmap:true
 URxvt.tintCddolor:white
 URxvt.shading:80[90]
-!URxvt.background:#000000
-!URxvt.background:black
-URxvt.foreground:yellow
-URxvt.background:gray
+! URxvt.background:#000000
+URxvt.background:Gray90
+URxvt.foreground:white
 URxvt.colorBD:Gray95
 URxvt.colorUL:Green
 URxvt.color1:Red2

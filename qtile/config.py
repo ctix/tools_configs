@@ -1,8 +1,6 @@
+# -*- coding: utf-8 -*-
 
-
-import os
-import subprocess
-from libqtile import bar, hook, layout, widget 
+from libqtile import bar, hook, layout, widget
 from libqtile.command import lazy
 from libqtile.config import Drag, Click, Group, Key, Match, Screen
 
@@ -85,7 +83,7 @@ class Widget(object):
     )
 
     weather = dict(
-        update_interval=600,
+        update_interval=60,
         metric=False,
         format='{condition_text} {condition_temp}°',
     )
@@ -98,12 +96,12 @@ class Commands(object):
     sakura = 'sakura'
     xfterm = 'xfce4-terminal'
     dmenu = 'dmenu_run -i -b -p ">>>" -fn "-*-fixed-*-*-*-*-16-*-*-*-*-*-*-*" -nb "#15181a" -nf "#fff" -sb "#333" -sf "#fff"'
-    file_manager = 'caja'
+    file_manager = 'thunar'
     music_player = 'audacous'
-    vscode = 'vscode'
     lock_screen = 'i3exit lock'
-    suspend_sys = 'systemctl suspend'
+    suspend_screen = 'i3exit suspend'
     pdf_reader = 'zathura'
+    changebackpix = '/home/ctix/bin/bgpix'
     screenshot = 'xfce4-screenshooter'
     mathpix = 'mathpix-snipping-tool'
     sqlitebrowser = 'sqlitebrowser'
@@ -123,7 +121,7 @@ keys = [
     Key([mod, 'control'], 'r', lazy.restart()),
     Key([mod, 'control'], 'q', lazy.shutdown()),
     Key([mod, 'control'], 'l', lazy.spawn(Commands.lock_screen)),
-    Key([mod, 'control'], 'x', lazy.spawn(Commands.suspend_sys)),
+    Key([mod, 'control'], 'x', lazy.spawn(Commands.suspend_screen)),
 
     # Window Controls
     Key([mod, 'shift'], 'q', lazy.window.kill()),
@@ -162,8 +160,8 @@ keys = [
     Key([mod, 'control'], 'c', lazy.spawn(Commands.browser)),
     Key([mod, 'control'], 'o', lazy.spawn(Commands.opera)),
     Key([mod, 'control'], 's', lazy.spawn(Commands.sakura)),
+    #Key([mod, 'control'], 'x', lazy.spawn(Commands.xfterm)),
     Key([mod, 'control'], 'f', lazy.spawn(Commands.file_manager)),
-    Key([mod, 'control'], 'v', lazy.spawn(Commands.vscode)),
     Key([mod, 'control'], 'm', lazy.spawn(Commands.music_player)),
     #Key([mod], 'q', lazy.spawn(Commands.sqlitebrowser)),
     Key([mod, 'control'], 'z', lazy.spawn(Commands.pdf_reader)),
@@ -178,7 +176,7 @@ keys = [
     # TODO: What does the PrtSc button map to?
     #Key([mod, 'shift'], 'p', lazy.spawn(Commands.mathpix)),
     Key([mod, 'shift'], 'p', lazy.spawn(Commands.screenshot)),
-    #  Key([mod], 'p', lazy.spawn(Commands.changebackpix)),
+    Key([mod], 'p', lazy.spawn(Commands.changebackpix)),
     Key([mod, 'shift'], 'd', lazy.spawn(Commands.screen_display)),
 ]
 
@@ -248,17 +246,6 @@ mouse = (
 
 bring_front_click = True
 
-def num_screens():
-    process = subprocess.Popen(["xrandr"], stdout=subprocess.PIPE)
-    out = process.communicate()[0].decode('ascii').split("\n")
-    i = 0
-    for line in out:
-        if " connected " in line:
-            i += 1
-    return i
-
-#hook.subscribe.current_screen_change(hook_response)
-
 # Screens
 screens = [
     Screen(
@@ -274,18 +261,18 @@ screens = [
                     fill_color='#1667EB.3',
                     **Widget.graph),
                 widget.Sep(**Widget.sep),
-	    #  widget.MemoryGraph(
-	    #      graph_color='#00FE81',
-	    #      fill_color='#00B25B.3',
-	    #      **Widget.graph),
-	    #  widget.SwapGraph(
-	    #      graph_color='#5E0101',
-	    #      fill_color='#FF5656',
-	    #      **Widget.graph),
-	      widget.NetGraph(
+    #  widget.MemoryGraph(
+    #  graph_color='#00FE81',
+    #  fill_color='#00B25B.3',
+    #  **Widget.graph),
+    #  widget.SwapGraph(
+    #  graph_color='#5E0101',
+    #  fill_color='#FF5656',
+    #  **Widget.graph),
+                widget.NetGraph(
                     graph_color='#ffff00',
                     fill_color='#4d4d00',
-                    interface='wlp3s0',
+                    interface='wls3',
                     **Widget.graph),
     # widget.HDDBusyGraph(device='sda', **Widget.graph),
     #  widget.HDDBusyGraph(device='sdb', **Widget.graph),
@@ -294,34 +281,24 @@ screens = [
                 widget.CurrentLayout(),
                 widget.Systray(**Widget.systray),
                 widget.BatteryIcon(**Widget.battery),
-    widget.Battery(**Widget.battery_text),
+    #widget.Battery(**Widget.battery_text),
     widget.Volume(
          theme_path='/usr/share/icons/Humanity/status/22/',
          cardid=1),
-    widget.Wlan(interface='wlp3s0',background='#305012'),
+    #widget.YahooWeather(location='Beijing, CN', **Widget.weather),
+    #widget.Wlan(interface='wls3'),
             ],
             **bar_defaults), ),
-    #  Screen(
-        #  top=bar.Bar(
-            #  widgets=[
-                #  widget.GroupBox(**Widget.groupbox),
-                #  widget.WindowName(),
-                #  widget.CurrentLayout(),
-        ## Widget.Battery(),
-            #  ],
-            #  **bar_defaults), )
+    Screen(
+        top=bar.Bar(
+            widgets=[
+                widget.GroupBox(**Widget.groupbox),
+                widget.WindowName(),
+                widget.CurrentLayout(),
+    #  Widget.Battery(),
+            ],
+            **bar_defaults), )
 ]
-
-if num_screens() == 2:
-    screens.append(Screen( bottom=bar.Bar([
-          widget.GroupBox(highlight_method="block", this_current_screen_border="#6699AA"),
-          widget.Sep(padding=15),
-          widget.CurrentLayout(),
-          widget.Sep(padding=15),
-          widget.Prompt(),
-          widget.Sep(padding=15),
-          widget.Systray(),
-        ], 25)))
 
 # Layouts
 layouts = (
@@ -363,10 +340,13 @@ floating_layout = layout.floating.Floating(
     **layout_defaults)
 
 
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+def main(qtile):
+    import os
+    os.system("nm-applet &")
+    # os.system("~/.wallpaper/changebg.sh")
+    #os.system("fcitx5  &")
+    # os.system("volumeicon &")
+
 
 @hook.subscribe.client_new
 def floating_dialogs(window):
@@ -374,11 +354,3 @@ def floating_dialogs(window):
     transient = window.window.get_wm_transient_for()
     if dialog or transient:
         window.floating = True
-
-#def main(qtile):
-#    import os
-#    os.system("nm-applet &")
-#    os.system("fcitx -d &")
-#    os.system("~/bin/wallpaper.sh  &")
-#    #lazy.spawn(Commands.terminal)
-
