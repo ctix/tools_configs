@@ -28,8 +28,8 @@ URxvt.perl-ext-common: default,clipboard,resize-font
 URxvt.keysym.C-Down:  resize-font:smaller
 URxvt.keysym.C-Up:    resize-font:bigger
 URxvt.clipboard.autocopy: true
-URxvt.keysym.C-c: perl:clipboard:copy
-URxvt.keysym.C-v: perl:clipboard:paste
+!URxvt.keysym.C-c: perl:clipboard:copy
+!URxvt.keysym.C-v: perl:clipboard:paste
 !URxvt.perl-ext-common: default,tabbed
 ! URxvt.tabbed.tab-fg: 12
 ! URxvt.tabbed.tab-bg: 0
