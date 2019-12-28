@@ -36,14 +36,17 @@ exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id fcitx &
 exec --no-startup-id pasystray &
 #change background
-exec_always --no-startup-id ~/.wallpaper/changebg.sh &
+#exec_always --no-startup-id ~/.wallpaper/changebg.sh &
+exec_always --no-startup-id ~/Pictures/changebg.sh &
 # lock the screen 
-set $i3lock i3lock -i ~/.wallpaper/lock.png
+#set $i3lock i3lock -i ~/.wallpaper/lock.png
+set $i3lock i3lock -i ~/Pictures/lock.png
 
 exec_always --no-startup-id xset dpms 900
 #bindsym $mod+Shift+x exec "$i3lock && systemctl suspend"
 bindsym $mod+Shift+o exec $i3lock
-exec --no-startup-id xautolock -time 5 -locker "i3lock -u -t -c 000000 -i ~/.wallpaper/lock.png" &
+#exec --no-startup-id xautolock -time 5 -locker "i3lock -u -t -c 000000 -i ~/.wallpaper/lock.png" &
+exec --no-startup-id xautolock -time 15 -locker "i3lock -u -t -c 000000 -i ~/Pictures/lock.png" &
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -150,8 +153,10 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ## dual monitors
-bindsym $mod+Shift+v exec "xrandr --output VGA1 --right-of LVDS1 --auto"
-bindsym $mod+shift+b exec "xrandr --output VGA1 --left-of LVDS1 --auto"
+#bindsym $mod+Shift+v exec "xrandr --output VGA1 --right-of LVDS1 --auto"
+#bindsym $mod+Shift+b exec "xrandr --output VGA1 --left-of LVDS1 --auto"
+bindsym $mod+shift+v exec "xrandr --output HDMI1 --right-of eDP1 --auto"
+bindsym $mod+shift+b exec "xrandr --output HDMI1 --left-of eDP1 --auto"
 
 #Snap the screen region
 bindsym $mod+Print exec scrot 
