@@ -50,7 +50,7 @@ URxvt.saveLines:3000
 URxvt.borderLess:False
 !icons
 URxvt.iconFile: /usr/share/icons/manjaro/maia/32x32.png
-!!字体设置
+!!字体设置 fc-list |grep <used fonts>
 URxvt.font:xft:DejaVuSansMono Nerd Font Mono:Book:pixelsize=16, \
         xft:WenQuanYi Zen Hei:Regular:pixelsize=16, \
         xft:Noto Sans CJK SC:Regular:pixelsize=16 

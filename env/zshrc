@@ -1,20 +1,17 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export GTK_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx5
-export QT_IM_MODULE=fcitx
-export ANDROID_HOME="/home/ctix/Android/Sdk"
+export ANDROID_HOME="/opt/Android/Sdk"
 export MONITOR="eDP-1-1"
 
-# FLUTTER PUB
+# FLUTTER PUB mirrors source  
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 #export PUB_HOSTED_URL="https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
 #export FLUTTER_STORAGE_BASE_URL="https://mirrors.tuna.tsinghua.edu.cn/flutter"
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/ctix/.oh-my-zsh
+export ZSH=/home/ctix/.oh-my-zsh
 
 # added by Anaconda3 installer
 export PATH=$HOME/bin:$HOME/miniconda3/bin:/opt/flutter/bin:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$HOME/.config/scripts:$PATH
@@ -29,43 +26,8 @@ ZSH_THEME="wedisagree"
 #ZSH_THEME="random"
 #ZSH_THEME="jonathan" 
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
 # Uncomment the following line to change how often to auto-update (in days).
  export UPDATE_ZSH_DAYS=55
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -75,8 +37,8 @@ plugins=(git z wd themes)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
+# User configuration : universal extractor for most tarballs 
+# cli : extract tarballs 
 extract () {
 if [ -f $1 ] ; then
   case $1 in
@@ -98,102 +60,78 @@ if [ -f $1 ] ; then
  fi
 }
 
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# cuda dnn
-#export LD_LIBRARY_PATH="/opt/cuda/lib64:${LD_LIBRARY_PATH}"
-#export CUDA_HOME="/opt/cuda"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Example aliases for edit configs
 alias zshconfig="vi ~/.zshrc"
 alias smbconfig="sudo vi /etc/samba/smb.conf"
 alias ohmyzsh="vi ~/.oh-my-zsh"
+alias i3config="vi ~/.config/i3/config"
+alias wpa="_ vi /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf"
+alias polyconfig="vi ~/.config/polybar/config"
+alias qtilecfg='vi ~/.config/qtile/config.py'
+alias xresqtcfg='vi ~/.config/X11/xresources'
+# alias for short cli 
 alias lsdisk="sudo fdisk -l "
 alias srczsh="source ~/.zshrc"
 alias totensor="source ~/tensorflow/bin/activate"
 alias pbd="ping -c4 www.baidu.com"
 alias ship="ip addr show"
-alias i3config="vi ~/.config/i3/config"
 alias nx="nvidia-xrun"
 alias nxcfg="vi .nvidia-xinitrc"
 alias his="history |grep"
-alias wpa="_ vi /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf"
-#i3 use multi-monitor VGA , if HDMI-1-1 replace VGA
+# alias for displays and multi-screens 
+# i3 use multi-monitor VGA , if HDMI-1-1 replace VGA
 alias mml="xrandr --output VGA-1-1 --left-of eDP-1-1 --auto"
 #i3 use multi-monitor VGA , if HDMI-1-1 replace VGA
-alias mml="xrandr --output VGA-1-1 --left-of eDP-1-1 --auto"
 alias mmlh="xrandr --output HDMI-1-1 --left-of eDP-1-1 --auto"
 alias mmr="xrandr --output VGA-1-1 --right-of eDP-1-1 --auto"
 alias mmrh="xrandr --output HDMI-1-1 --left-of eDP-1-1 --auto"
 alias hdmi_only="xrandr --output eDP-1-1 --off"
-alias lcoff="xrandr --output eDP-1-1 --off"
 alias vgao="xrandr --output eDP-1-1 --off"
 alias hdmi_="xrandr --output HDMI-1-1 --mode 1920x1080"
-alias tv="xrandr --output HDMI-1-1 --mode 1280x1024 "
-alias lapoff="xrandr --output eDP-1-1 --off"
 alias loco="xrandr --output eDP-1-1  --auto --output HDMI-1-1 --off"
+alias erect="xrandr --output VGA-1-1 --rotate left"
+alias erecth="xrandr --output HDMI-1-1 --rotate left"
 ## WIFI switch
 #alias homewifi="sudo wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant_nerual.conf  -iwlp3s0"
 #alias tsgwifi="sudo wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf  -iwlp3s0"
 alias psg="ps -ef|grep"
+alias gcl1="gcl --depth=1"
+alias pipgre="pip list |grep"
 alias skill="sudo kill -9"
+alias dudir="sudo du -lh --max-depth=1"
+alias alg="alias|grep"
 alias svi="sudo vi"
 alias df="df -h"
 alias jnb="jupyter lab"
+#alias for ffmpeg screen vedio capture
 alias rec3m="ffmpeg -s 1920x1080 -r 25 -f x11grab -i :0.0 -f alsa -ac 2 -ar 44100 -i pulse -t 180 /tmp/test.mp4" 
 alias recarea="ffmpeg -s 1680x920 -r 25 -f x11grab -i :0.0+10,80 -f alsa -ac 2 -ar 44100 -i pulse -t 360 /tmp/prod_01.mp4"
-alias dudir="sudo du -lh --max-depth=1"
-alias alg="alias|grep"
-#alias edit='docker run -ti --rm -v $(pwd):/home/developer/workspace jare/vim-bundle'
-alias polyconfig="vi ~/.config/polybar/config"
-alias cleanpkgs='yay -R $(pacman -Qdtq)'
-alias qtilecfg='vi ~/.config/qtile/config.py'
-alias xresqtcfg='vi ~/.config/X11/xresources'
-alias bgp='feh  --randomize --bg-scale  ~/Pictures/*'
-alias sshcq='ssh ctix@tcvm -p 61871'
-alias sshsh='ssh ctix@shml -p 61871'
-alias sshbj='ssh ctix@bjbj -p 27917'
 
+#alias edit='docker run -ti --rm -v $(pwd):/home/developer/workspace jare/vim-bundle'
+alias cleanpkgs='yay -R $(pacman -Qdtq)'
+alias bgp='feh  --randomize --bg-scale  ~/Pictures/*'
 alias tf2env="source activate tf2"
 alias condea="conda deactivate"
-alias pspy="ps -ef| grep python"
 
-alias erect="xrandr --output VGA-1-1 --rotate left"
-alias erecth="xrandr --output HDMI-1-1 --rotate left"
 alias blon="bluetoothctl power on"
 alias blof="bluetoothctl power off"
 alias capctl="xmodmap ~/.Xmodmap 2>/dev/null"
 alias mtnfsx61="sudo mount.nfs4 x61:/srv/nfs/Read /mnt/srv"
 alias xres="xrdb -load $HOME/.Xresources"
-alias xresqt="xrdb -load $HOME/.config/X11/xresources"
+# online cheatsheet for cmd usage and coding advice
 alias cha="cht.sh"
+# switch keyboard layout
+alias kbset_de='setxkbmap -model pc86 -layout us,de  -option grp:alt_shift_toggle'
+# keyboard caps Lock to another Ctrl Key
+alias cap2ctl='setxkbmap -option caps:ctrl_modifier'
 
-
-## LS_COLORS=$LS_COLORS:'di=1;33:'; export LS_COLORS
-## start graphics while log in
-
+## autostart qtile windows manager while log in tty1
+## nvidia.xrun for dual display cards, may it be deprecated!!
 if [[ $(tty) = /dev/tty1 ]]; then
   nx qtile 
 #  nx i3 

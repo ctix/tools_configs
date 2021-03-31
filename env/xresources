@@ -4,7 +4,7 @@ URxvt.preeditType:Root
 URxvt.inputMethod:fcitx5
 !!颜色设置
 URxvt.depth:32
-!!中括号内数表示透明度
+!!中括号内数表示透明度 install picom or compton
 URxvt.inheritPixmap:true
 URxvt.tintCddolor:white
 URxvt.shading:80[20]
@@ -25,12 +25,15 @@ URxvt.color14:Cyan2
 URxvt.color15:Gray95
 !! TAB == URL操作
 !URxvt.urlLauncher:opera
+!! resize urxvt terminal fonts by Ctrl-up/down Arrows
 URxvt.perl-ext-common: default,clipboard,resize-font
 URxvt.keysym.C-Down:  resize-font:smaller
 URxvt.keysym.C-Up:    resize-font:bigger
 URxvt.clipboard.autocopy: true
+!! uncomment to copy/paster from/into urxvt 
 !URxvt.keysym.C-c: perl:clipboard:copy
 !URxvt.keysym.C-v: perl:clipboard:paste
+!! add Tab Pages 
 !URxvt.perl-ext-common: default,tabbed
 ! URxvt.tabbed.tab-fg: 12
 ! URxvt.tabbed.tab-bg: 0
