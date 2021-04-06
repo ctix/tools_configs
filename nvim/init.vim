@@ -5,21 +5,23 @@ endif
 " " - For Neovim: stdpath('data') . '/plugged'
 " " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
+Plug 'antoinemadec/coc-fzf'
 Plug 'mindriot101/vim-yapf'
+Plug 'liuchengxu/vista.vim'
+Plug 'tomasr/molokai'
 Plug 'dart-lang/dart-vim-plugin'
-Plug 'tpope/vim-fugitive'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
+Plug 'itchyny/lightline.vim'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
-Plug 'jnurmine/Zenburn'
-Plug 'tomasr/molokai'
-Plug 'itchyny/lightline.vim'
 " Make sure you use single quotes
 " Initialize plugin system
 call plug#end()
-
 
 
 " set termguicolors
@@ -45,20 +47,6 @@ set number
 let mapleader = ','
 nnoremap <leader>y :Yapf<cr>
 autocmd BufWritePre *.py 0,$!yapf
-" ####################################
-" TextEdit might fail if hidden is not set.
-" ######## windows switching keys remapping ########
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-  
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""  2021-03-31 14:42 use <No.>gt to switch among tabs  
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-map <leader>tn :tabnew <CR> 
 
 set hidden
 
@@ -88,18 +76,58 @@ endif
 
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-"
-" ==============================
-" map <leader>nt :NERDTreeToggle<CR>
-" ==============================
-autocmd StdinReadPre * let s:std_in=1
 
-" ====:terminal  Escape the insert mode=====================
-:tnoremap <Esc> <C-\><C-n>
-map <leader>tt :terminal<CR>
-" 配置默认的切换 terminal 的热键，不是写死的 ALT+等于号。
-let g:terminal_cwd = 1 
-" 可以通过  配置 shell 启动时
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vista.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! NearestMethodOrFunction() abort
+	return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+let g:vista_icon_indent = ["╰─> ", "├─>"]
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+			\ 'dart': 'coc',
+			\ 'py': 'coc',
+			\ }
+let g:vista_ctags_cmd = {
+			\ 'haskell': 'hasktags -x -o - -c',
+			\ }
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+			\   "function": "\uf794",
+			\   "variable": "\uf71b",
+			\  }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ,vt short for viewtag / vista 
+nnoremap <silent><nowait> <leader>tg :Vista!!<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" ####################################
+" TextEdit might fail if hidden is not set.
+" ######## windows switching keys remapping ########
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" ==============================
+"  ,ft open File Tree  
+nnoremap <leader>ft :CocCommand explorer<CR>
+" ==============================
+"
+"  ######## vim follow nothing then open NERDTree#############
+autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -240,30 +268,30 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}o
 
-"====== coc-git ===========  
-" set statusline^=%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}
+" ====lightline ============ 
+let g:lightline = {
+  \ 'active': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+  \   ],
+  \   'right':[
+  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+  \     [ 'blame' ]
+  \   ],
+  \ },
+  \ 'component_function': {
+  \   'blame': 'LightlineGitBlame',
+  \ }
+\ }
 
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-" navigate conflicts of current buffer
-nmap [c <Plug>(coc-git-prevconflict)
-nmap ]c <Plug>(coc-git-nextconflict)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
-" show commit contains current position
-nmap gc <Plug>(coc-git-commit)
-" create text object for git chunks
-omap ig <Plug>(coc-git-chunk-inner)
-xmap ig <Plug>(coc-git-chunk-inner)
-omap ag <Plug>(coc-git-chunk-outer)
-xmap ag <Plug>(coc-git-chunk-outer)
-
-
-"====== coc-explorer ===========  
-nnoremap <leader>ft :CocCommand explorer<CR>
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
 
 " Mappings for CoCList
 " Show all diagnostics.
