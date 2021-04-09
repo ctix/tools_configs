@@ -11,14 +11,13 @@ Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
 Plug 'junegunn/fzf.vim' " needed for previews
 Plug 'antoinemadec/coc-fzf'
 Plug 'mindriot101/vim-yapf'
-Plug 'liuchengxu/vista.vim'
 Plug 'tomasr/molokai'
+Plug 'mileszs/ack.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'liuchengxu/vim-which-key'
 " Make sure you use single quotes
 " Initialize plugin system
 call plug#end()
@@ -31,25 +30,14 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
-"
 " =========================
-filetype plugin indent on
-filetype plugin on
-" colorscheme NeoSolarized
-colorscheme molokai
-syntax enable
-set tabstop=4
-set expandtab
-set number
-let mapleader = ','
-nnoremap <leader>y :Yapf<cr>
-autocmd BufWritePre *.py 0,$!yapf
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
 
+" =========================
+" TextEdit might fail if hidden is not set.
 set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -65,73 +53,56 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+filetype plugin indent on
+filetype plugin on
+" colorscheme NeoSolarized
+colorscheme molokai
+" colorscheme koehler
+syntax enable
+set tabstop=4
+set expandtab
+set number
 
+let g:mapleader = ','
+let g:maplocalleader = "\<Space>"
+nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey '<Space>'<CR>
+
+nnoremap <localleader>y :Yapf<cr>
+autocmd BufWritePre *.py 0,$!yapf
+
+nnoremap <silent> <leader>ec   :e ~/.config/nvim/init.vim <CR>
+nnoremap <silent> <leader>tn   :tabnew <CR>
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vista.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! NearestMethodOrFunction() abort
-	return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:vista_icon_indent = ["╰─> ", "├─>"]
-let g:vista_default_executive = 'ctags'
-let g:vista_executive_for = {
-			\ 'dart': 'coc',
-			\ 'py': 'coc',
-			\ }
-let g:vista_ctags_cmd = {
-			\ 'haskell': 'hasktags -x -o - -c',
-			\ }
-let g:vista_fzf_preview = ['right:50%']
-let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-			\   "function": "\uf794",
-			\   "variable": "\uf71b",
-			\  }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ,vt short for viewtag / vista 
-nnoremap <silent><nowait> <leader>tg :Vista!!<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " ####################################
-" TextEdit might fail if hidden is not set.
 " ######## windows switching keys remapping ########
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+" close other windows
+nnoremap <Leader>wo <C-W>o
+" quit/close current window
+nnoremap <Leader>wq <C-W>q
+
+" visual seleted yank to system clipboard
+vnoremap <Leader>y "+y
+" paste from clipboard
+nmap <Leader>p "+p
+nmap <Leader>q :q<CR>
+nmap <Leader>w :w<CR>
+"move around windows 
+nnoremap <leader>ww <C-W><C-W>
 
 " ==============================
 "  ,ft open File Tree  
 nnoremap <leader>ft :CocCommand explorer<CR>
-" ==============================
-"
-"  ######## vim follow nothing then open NERDTree#############
-autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+ " ==============================
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
 
@@ -204,10 +175,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -251,11 +218,6 @@ if has('nvim')
   vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
 endif
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
@@ -265,13 +227,15 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}o
-
 " ====lightline ============ 
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
+
 let g:lightline = {
+  \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -287,29 +251,25 @@ let g:lightline = {
   \ }
 \ }
 
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
-
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <localleader>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <localleader>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <localleader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <localleader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <localleader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <localleader>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <localleader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <localleader>p  :<C-u>CocListResume<CR>
 
 " ========== END of coc.nvim ====================================
 
+" source config to be effective on save  
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
