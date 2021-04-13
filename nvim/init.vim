@@ -63,6 +63,7 @@ syntax enable
 set tabstop=4
 set expandtab
 set number
+" set spell
 
 let g:mapleader = ','
 let g:maplocalleader = "\<Space>"
@@ -87,6 +88,17 @@ map <C-l> <C-W>l
 nnoremap <Leader>wo <C-W>o
 " quit/close current window
 nnoremap <Leader>wq <C-W>q
+" split windows vertically / horizontally
+nnoremap <Leader>ws <C-W>s
+nnoremap <Leader>wv <C-W>v
+""""""""""""""""""""""""""""""""""""
+"""""""  terminal inside   """""""
+""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>tt   :terminal <CR>
+tnoremap <m-q> <c-\><c-n>
+
+
+nnoremap <silent> <leader>sp   :set spell <CR>
 
 " visual seleted yank to system clipboard
 vnoremap <Leader>y "+y
