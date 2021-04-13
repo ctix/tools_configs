@@ -95,6 +95,14 @@ nnoremap <Leader>wv <C-W>v
 """""""  terminal inside   """""""
 """"""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader>tt   :terminal <CR>
+
+""""""""""""""""""""""""""""""""""""
+" Use <leader>cs for convert visual selected code to snippet
+xmap <leader>sc  <Plug>(coc-convert-snippet)
+""""""""""""""""""""""""""""""""""""
+ 
+
+""""Alt-q to quit into edit mode""""""""
 tnoremap <m-q> <c-\><c-n>
 
 
