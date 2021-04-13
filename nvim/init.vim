@@ -10,6 +10,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
 Plug 'junegunn/fzf.vim' " needed for previews
 Plug 'antoinemadec/coc-fzf'
+Plug 'tpope/vim-fugitive'
 Plug 'mindriot101/vim-yapf'
 Plug 'tomasr/molokai'
 Plug 'mileszs/ack.vim'
