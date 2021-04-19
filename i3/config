@@ -115,7 +115,8 @@ set $workspace9 "9:"
 set $workspace10 "10:"
 
 # alias 
-set $bg_chg exec --no-startup-id feh -z --bg-scale ~/Pictures/*
+set $bg_chg exec --no-startup-id feh -z --bg-scale ~/.wallpaper/*
+set $color_chg exec  ~/.config/polybar/shapes/scripts/random.sh
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -127,7 +128,7 @@ bindsym $mod+6 workspace $workspace6
 bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8; $bg_chg
 bindsym $mod+9 workspace $workspace9; $bg_chg
-bindsym $mod+0 workspace $workspace10; $bg_chg
+bindsym $mod+0 workspace $workspace10; $color_chg
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -154,7 +155,7 @@ assign [class="Thunar"] $workspace6
 #assign [class="Spotify"] $workspace10
 #for_window [class="Spotify"] move to workspace $workspace10 
 #assign [class="Code - Insiders"] $workspace4
-assign [class="Code"] $workspace4
+assign [class="Code"] $workspace6
 #assign [class="Audacious"] $workspace4
 #assign [class="Gnome-mplayer"] $workspace5
 #assign [class="Vlc"] $workspace5
@@ -164,9 +165,9 @@ assign [class="Code"] $workspace4
 #assign [class="Steam"] $workspace6
 #assign [class="Gimp"] $workspace8
 
-# reload the configuration file
-bindsym $mod+Shift+r restart
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# reload the configuration file
 bindsym $mod+Ctrl+r reload
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec ./config/i3/scripts/i3-exit
@@ -176,10 +177,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
@@ -293,7 +290,7 @@ bindsym $mod+Shift+m exec --no-startup-id systemctl --user start mpd.service
 bindsym $mod+Ctrl+m exec --no-startup-id systemctl --user stop mpd.service
 bindsym $mod+Ctrl+c exec --no-startup-id chromium  
 bindsym $mod+Ctrl+f exec --no-startup-id thunar  
-bindsym $mod+Ctrl+p exec --no-startup-id mypaint  
+#bindsym $mod+Ctrl+p exec --no-startup-id mypaint  
 bindsym $mod+Ctrl+v exec --no-startup-id vscode
 #bindsym $mod+Ctrl+t exec --no-startup-id termite
 #bindsym $mod+Ctrl+n exec --no-startup-id nm-connection-editor  
@@ -305,13 +302,10 @@ bindsym $mod+Ctrl+x exec "rofi-computer"
 Bindsym $mod+Ctrl+l exec "betterlockscreen -l dim" 
 
 # autostarted applications
+exec_always --no-startup-id setxkbmap -option ctrl:nocaps
 exec --no-startup-id compton -b
 exec_always --no-startup-id ~/.config/polybar/launch.sh --shapes
-#exec --no-startup-id nitrogen --restore; sleep 1;
-exec --no-startup-id fcitx -d
-exec_always --no-startup-id ~/Pictures/wallpaper.sh
-
-# alias 
+exec_always --no-startup-id $bg_chg 
 exec --no-startup-id xset dpms 500
 exec --no-startup-id xautolock -time 10 -locker "betterlockscreen -l dim"
 #exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
