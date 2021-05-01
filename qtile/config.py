@@ -2,7 +2,10 @@
 
 from libqtile import bar, hook, layout, widget
 from libqtile.command import lazy
-from libqtile.config import Drag, Click, Group, Key, Match, Screen
+from libqtile.config import Drag, Group, Key, Match, Screen
+
+#WIFI_INTF = "wls33"
+NET_INTF = "ens37"
 
 # Theme defaults
 bar_defaults = dict(
@@ -51,7 +54,7 @@ class Widget(object):
         highlight_method='block',
         rounded=True,
 
-    # margin=-1,
+        # margin=-1,
         padding=3,
         borderwidth=2,
         disable_drag=True,
@@ -60,7 +63,7 @@ class Widget(object):
 
     sep = dict(
         foreground=layout_defaults['border_normal'],
-        height_percent=100,
+        size_percent=100,
         padding=5,
     )
 
@@ -77,8 +80,8 @@ class Widget(object):
 
     battery_text = battery.copy()
     battery_text.update(
-        charge_char='',    # fa-arrow-up
-        discharge_char='',    # fa-arrow-down
+        charge_char='',  # fa-arrow-up
+        discharge_char='',  # fa-arrow-down
         format='{char} {hour:d}:{min:02d}',
     )
 
@@ -101,7 +104,7 @@ class Commands(object):
     lock_screen = 'i3exit lock'
     suspend_screen = 'i3exit suspend'
     pdf_reader = 'zathura'
-    changebackpix = '/home/ctix/bin/bgpix'
+    chpix = '/home/ctix/.wallpaper/chpix.sh'
     screenshot = 'xfce4-screenshooter'
     mathpix = 'mathpix-snipping-tool'
     sqlitebrowser = 'sqlitebrowser'
@@ -176,7 +179,7 @@ keys = [
     # TODO: What does the PrtSc button map to?
     #Key([mod, 'shift'], 'p', lazy.spawn(Commands.mathpix)),
     Key([mod, 'shift'], 'p', lazy.spawn(Commands.screenshot)),
-    Key([mod], 'p', lazy.spawn(Commands.changebackpix)),
+    Key([mod], 'p', lazy.spawn(Commands.chpix)),
     Key([mod, 'shift'], 'd', lazy.spawn(Commands.screen_display)),
 ]
 
@@ -193,7 +196,7 @@ group_setup = (
     ('', {
             'layout': 'max',
             'matches': [Match(wm_class=('Sakura','Xfce4-terminal'))],
-		}),  # fa-terminal
+    }),  # fa-terminal
     ('', {
             'layout': 'max',
             'matches': [Match(wm_class=('Chromium',))],
@@ -209,7 +212,7 @@ group_setup = (
     ('', { #xfce4 apps
         'layout': 'max',
         'matches': [Match(wm_class=('Xfce4-notes','Xfce4-dict', 'Xfce4-display-settings'))],
-		}),  # fa-circle-o
+    }),  # fa-circle-o
     ('', {
         'layout': 'max',
         'matches': [Match(wm_class=('Audacious',))],
@@ -249,44 +252,42 @@ bring_front_click = True
 # Screens
 screens = [
     Screen(
-    # bottom=bar.Bar(widgets=[Powerline()], **bar_defaults),
+        # bottom=bar.Bar(widgets=[Powerline()], **bar_defaults),
         top=bar.Bar(
             widgets=[
                 widget.GroupBox(**Widget.groupbox),
                 widget.Clock(foreground='4aef81', format='%y-%m-%d %H:%M'),
                 widget.Sep(**Widget.sep),
                 widget.WindowName(),
-                widget.CPUGraph(
-                    graph_color='#18BAEB',
-                    fill_color='#1667EB.3',
-                    **Widget.graph),
+                widget.CPUGraph(graph_color='#18BAEB',
+                                fill_color='#1667EB.3',
+                                **Widget.graph),
                 widget.Sep(**Widget.sep),
-    #  widget.MemoryGraph(
-    #  graph_color='#00FE81',
-    #  fill_color='#00B25B.3',
-    #  **Widget.graph),
-    #  widget.SwapGraph(
-    #  graph_color='#5E0101',
-    #  fill_color='#FF5656',
-    #  **Widget.graph),
-                widget.NetGraph(
-                    graph_color='#ffff00',
-                    fill_color='#4d4d00',
-                    interface='wls3',
-                    **Widget.graph),
-    # widget.HDDBusyGraph(device='sda', **Widget.graph),
-    #  widget.HDDBusyGraph(device='sdb', **Widget.graph),
+                #  widget.MemoryGraph(
+                #  graph_color='#00FE81',
+                #  fill_color='#00B25B.3',
+                #  **Widget.graph),
+                #  widget.SwapGraph(
+                #  graph_color='#5E0101',
+                #  fill_color='#FF5656',
+                #  **Widget.graph),
+                widget.NetGraph(graph_color='#ffff00',
+                                fill_color='#4d4d00',
+                                interface=NET_INTF,
+                                **Widget.graph),
+                # widget.HDDBusyGraph(device='sda', **Widget.graph),
+                #  widget.HDDBusyGraph(device='sdb', **Widget.graph),
                 widget.ThermalSensor(metric=True, threshold=79),
                 widget.Sep(**Widget.sep),
                 widget.CurrentLayout(),
                 widget.Systray(**Widget.systray),
                 widget.BatteryIcon(**Widget.battery),
-    #widget.Battery(**Widget.battery_text),
-    widget.Volume(
-         theme_path='/usr/share/icons/Humanity/status/22/',
-         cardid=1),
-    #widget.YahooWeather(location='Beijing, CN', **Widget.weather),
-    #widget.Wlan(interface='wls3'),
+                #widget.Battery(**Widget.battery_text),
+                widget.Volume(
+                    theme_path='/usr/share/icons/Humanity/status/22/',
+                    cardid=1),
+                #widget.YahooWeather(location='Beijing, CN', **Widget.weather),
+                #widget.Wlan(interface='wls3'),
             ],
             **bar_defaults), ),
     Screen(
@@ -295,7 +296,7 @@ screens = [
                 widget.GroupBox(**Widget.groupbox),
                 widget.WindowName(),
                 widget.CurrentLayout(),
-    #  Widget.Battery(),
+                #  Widget.Battery(),
             ],
             **bar_defaults), )
 ]
@@ -311,33 +312,13 @@ layouts = (
     layout.Zoomy(**layout_defaults),
 )
 
-floating_layout = layout.floating.Floating(
-    auto_float_types=(
-        'notification',
-        'toolbar',
-        'splash',
-        'dialog',
-    ),
-    float_rules=[
-        {
-            'wmclass': x
-        } for x in (
-            'audacious',
-            'Download',
-            'dropbox',
-            'file_progress',
-            'file-roller',
-            'gimp',
-            'Komodo_confirm_repl',
-            'Komodo_find2',
-            'pidgin',
-            'skype',
-            'Transmission',
-            'Update',    # Komodo update window
-            'Xephyr',
-        )
-    ],
-    **layout_defaults)
+floating_layout = layout.floating.Floating(auto_float_types=(
+    'notification',
+    'toolbar',
+    'splash',
+    'dialog',
+),
+                                           **layout_defaults)
 
 
 def main(qtile):
